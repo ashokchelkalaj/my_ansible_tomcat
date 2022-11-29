@@ -1,0 +1,10 @@
+---
+- name: Installing tomcat on rhel and tomcat8-admin packages
+  yum:
+   name: tomcat-*
+   state: present
+   update_cache: yes
+   #with_items:
+   #- {a: "{{pkg1}}", b: "{{state1}}",c: "{{cache1}}"}
+   # - {a: "{{pkg2}}", b: "{{state1}}",c: "{{cache1}}"}
+...

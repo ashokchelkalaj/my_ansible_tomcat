@@ -1,0 +1,6 @@
+---
+- name: Copy username and password from tomcat-users.xml file
+  copy:
+   src: "{{ a }}"
+   dest: "{{ b }}"
+...

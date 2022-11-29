@@ -1,0 +1,13 @@
+---
+# vars file for tomcat
+pkg1: tomcat
+
+state1: present
+cache1: yes
+state3: restarted
+a: tomcat-users.xml
+b: /etc/tomcat
+server1: http://20.235.66.56:8080
+status1: 200
+path1: /etc/tomcat/server.xml
+

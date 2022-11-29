@@ -1,0 +1,31 @@
+
+# tasks file for tomcat
+
+---
+# tasks file for tomcat
+- name: Include Variables
+  include_vars: "{{ ansible_os_family }}.yml"
+
+
+- name: install tomcat on Debian
+  include: "{{item}}"
+  with_items:
+   - debian_tomcat.yml
+   - debian_configure.yml
+   - debian_restart.yml
+   - debian_status.yml
+  when: ansible_os_family== 'Debian'
+
+
+
+
+- name: install tomcat on Rhel
+  include: "{{item}}"
+  with_items:
+   - rhel_tomcat.yml
+   - rhel_configure.yml
+   - rhel_restart.yml
+   - rhel_status.yml
+     #- tomcat_restart.yml
+  when: ansible_os_family== 'RedHat'
+...

@@ -1,0 +1,14 @@
+---
+# vars file for tomcat
+pkg1: tomcat8
+pkg2: tomcat8-admin
+state1: present
+cache1: yes
+state3: restarted
+file1: tomcat-users.xml
+destination1: /etc/tomcat8
+server1: http://localhost:9090
+status1: 200
+path1: /etc/tomcat8/server.xml
+port1: 8080
+port2: 9090
