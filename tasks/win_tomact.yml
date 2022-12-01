@@ -1,0 +1,58 @@
+
+---
+- name: install tomcat server
+  hosts: windows
+  vars:
+    status: present
+    t_majorversion: 9
+    t_version: 9.0.60
+    t_state: start
+    state: started
+
+  tasks:
+   - name: Downloading Java
+     win_get_url:
+       url: https://repo.huaweicloud.com/java/jdk/11.0.2+9/jdk-11.0.2_windows-x64_bin.exe
+       dest: C:\temp\jdk-11.0.2_windows-x64_bin.exe
+
+   - name: Installing Java
+     win_package:
+       path: C:\temp\jdk-11.0.2_windows-x64_bin.exe
+       create_path: C:\Program Files\jdk-11.0.2_windows-x64_bin.exe
+       product_id: auto
+       state: "{{status}}"
+
+   - name: Adding Environment variable path for Java
+     win_environment:
+       state: "{{status}}"
+       name: CLASSPATH
+       value: C:\Program Files\Java\jdk-11.0.2\bin;C:\Program Files\tomcat{{t_majorversion}}\apache-tomcat-{{t_version}}\bin
+       level: user
+
+   - name: Adding Environment variable JAVA_HOME for Java
+     win_environment:
+       state: "{{status}}"
+       name: JAVA_HOME
+       value: C:\Program Files\Java\jdk-11.0.2
+       name: CATALINA_HOME
+       value: C:\Program Files\tomcat{{t_majorversion}}\apache-tomcat-{{t_version}}
+       level: user
+
+   - name: Downloading Tomcat
+     win_get_url:
+       url: https://archive.apache.org/dist/tomcat/tomcat-{{t_majorversion}}/v{{t_version}}/bin/apache-tomcat-{{t_version}}.exe
+       dest: C:\temp\apache-tomcat-{{t_version}}.exe
+
+
+   - name: Installing Tomcat
+     win_package:
+       path: C:\temp\apache-tomcat-{{t_version}}.exe
+       product_id: auto
+       arguments: /S
+       state: "{{status}}"
+
+   - name: Running the tomcat server
+     win_service:
+       name: Tomcat9
+       path: C:\Program Files\Apache Software Foundation\Tomcat 9.0\bin\Tomcat9
+       state: "{{state}}"
