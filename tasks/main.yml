@@ -28,4 +28,10 @@
    - rhel_status.yml
      #- tomcat_restart.yml
   when: ansible_os_family== 'RedHat'
-...
+  
+  
+ - name: install tomacat on windows
+   include: "{{item}}"
+   with_items:
+     - win_tomcat.yml
+   when: ansible_os_family== 'windows'
